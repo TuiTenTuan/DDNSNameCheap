@@ -28,7 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.notiIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.ctmIcon = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SuspendLayout();
+            // 
+            // notiIcon
+            // 
+            this.notiIcon.ContextMenuStrip = this.ctmIcon;
+            this.notiIcon.Text = "DDNS";
+            this.notiIcon.Visible = true;
+            // 
+            // ctmIcon
+            // 
+            this.ctmIcon.Name = "ctmIcon";
+            this.ctmIcon.Size = new System.Drawing.Size(61, 4);
             // 
             // Form1
             // 
@@ -43,6 +57,9 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.NotifyIcon notiIcon;
+        private System.Windows.Forms.ContextMenuStrip ctmIcon;
     }
 }
 
