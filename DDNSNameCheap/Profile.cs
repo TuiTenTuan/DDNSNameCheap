@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DDNSNameCheap
@@ -16,30 +17,24 @@ namespace DDNSNameCheap
 
         public string Key { get; set; }
 
-        public long Interval { get; set; }
-
-        public string IdProcess { get; set; }
+        public int Interval { get; set; }
 
         public string Ip { get; set; }
 
-        public Profile(Guid id, string domain, string host, string key, long interval, string idProcess, string ip)
+        public string GetHost { get { return Host + "." + Domain; } }
+
+        public Profile(Guid id, string domain, string host, string key, int interval, string ip)
         {
             Id = id;
             Domain = domain;
             Host = host;
             Key = key;
             Interval = interval;
-            IdProcess = idProcess;
             Ip = ip;
         }
 
-        public Profile(string domain, string host, string key, long interval) : this(Guid.NewGuid(), domain, host, key, interval, "", "127.0.0.1") { }
+        public Profile(string domain, string host, string key, int interval) : this(Guid.NewGuid(), domain, host, key, interval, "127.0.0.1") { }
 
         public Profile() : this("", "", "", 1800) { }
-
-        public string GetHost()
-        {
-            return Host + "." + Domain;
-        }
     }
 }

@@ -39,8 +39,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.timerPublicIp = new System.Windows.Forms.Timer(this.components);
+            this.tssLastUpdate = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnClear = new System.Windows.Forms.Button();
             this.lvUpdate = new System.Windows.Forms.ListView();
@@ -48,6 +47,7 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tssIp = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctmIcon.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -114,23 +114,19 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.tssLastUpdate,
+            this.tssIp});
             this.statusStrip1.Location = new System.Drawing.Point(0, 339);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(684, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // tssLastUpdate
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(162, 17);
-            this.toolStripStatusLabel1.Text = "Last update: 11:43 20/09/2022";
-            // 
-            // timerPublicIp
-            // 
-            this.timerPublicIp.Enabled = true;
-            this.timerPublicIp.Tick += new System.EventHandler(this.timerPublicIp_Tick);
+            this.tssLastUpdate.Name = "tssLastUpdate";
+            this.tssLastUpdate.Size = new System.Drawing.Size(162, 17);
+            this.tssLastUpdate.Text = "Last update: 11:43 20/09/2022";
             // 
             // tableLayoutPanel1
             // 
@@ -202,6 +198,12 @@
             this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader3.Width = 398;
             // 
+            // tssIp
+            // 
+            this.tssIp.Name = "tssIp";
+            this.tssIp.Size = new System.Drawing.Size(102, 17);
+            this.tssIp.Text = "Current Public Ip: ";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,8 +236,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.Timer timerPublicIp;
+        private System.Windows.Forms.ToolStripStatusLabel tssLastUpdate;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.ListView lvUpdate;
@@ -243,6 +244,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ToolStripStatusLabel tssIp;
     }
 }
 
