@@ -40,6 +40,7 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssLastUpdate = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssIp = new System.Windows.Forms.ToolStripStatusLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnClear = new System.Windows.Forms.Button();
             this.lvUpdate = new System.Windows.Forms.ListView();
@@ -47,7 +48,6 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tssIp = new System.Windows.Forms.ToolStripStatusLabel();
             this.ctmIcon.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -128,6 +128,12 @@
             this.tssLastUpdate.Size = new System.Drawing.Size(162, 17);
             this.tssLastUpdate.Text = "Last update: 11:43 20/09/2022";
             // 
+            // tssIp
+            // 
+            this.tssIp.Name = "tssIp";
+            this.tssIp.Size = new System.Drawing.Size(102, 17);
+            this.tssIp.Text = "Current Public Ip: ";
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -165,7 +171,6 @@
             this.lvUpdate.GridLines = true;
             this.lvUpdate.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvUpdate.HideSelection = false;
-            this.lvUpdate.HoverSelection = true;
             this.lvUpdate.LabelWrap = false;
             this.lvUpdate.Location = new System.Drawing.Point(3, 3);
             this.lvUpdate.MultiSelect = false;
@@ -189,20 +194,12 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Host";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 120;
+            this.columnHeader2.Width = 180;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Status";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 398;
-            // 
-            // tssIp
-            // 
-            this.tssIp.Name = "tssIp";
-            this.tssIp.Size = new System.Drawing.Size(102, 17);
-            this.tssIp.Text = "Current Public Ip: ";
+            this.columnHeader3.Width = 338;
             // 
             // Form1
             // 

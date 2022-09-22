@@ -101,9 +101,14 @@ namespace DDNSNameCheap
             _profiles.RemoveAt(cbListProfile.SelectedIndex);
             Serialize();
 
-            cbListProfile.DataSource = _profiles;
-            cbListProfile.DisplayMember = "GetHost";
-            cbListProfile.Update();
+            ClearInput();
+            
+            ReloadListProfile();
+
+            if(cbListProfile.Items.Count > 0)
+            {
+                cbListProfile.SelectedIndex = 0;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -124,9 +129,8 @@ namespace DDNSNameCheap
                 _profiles[cbListProfile.SelectedIndex].Interval = (int)cbInterval.SelectedValue;
             }
 
-            cbListProfile.DataSource = _profiles;
-            cbListProfile.Refresh();
-            cbListProfile.DisplayMember = "GetHost";
+            ReloadListProfile();
+           
 
             btnDelete.Enabled = true;
 
@@ -135,12 +139,26 @@ namespace DDNSNameCheap
             Serialize();
         }
 
+        private void ReloadListProfile()
+        {
+            cbListProfile.DataSource = null;
+            cbListProfile.Items.Clear();
+
+            cbListProfile.DataSource = _profiles;
+            cbListProfile.DisplayMember = "GetHost";
+
+            //cbListProfile.BeginUpdate();
+        }
+
         private void cbListProfile_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tbDomain.Text = _profiles[cbListProfile.SelectedIndex].Domain;
-            tbHost.Text = _profiles[cbListProfile.SelectedIndex].Host;
-            tbKey.Text = _profiles[cbListProfile.SelectedIndex].Key;
-            cbInterval.SelectedValue = _profiles[cbListProfile.SelectedIndex].Interval;
+            if(_profiles.Count >= 0 && cbListProfile.SelectedIndex >= 0 && cbListProfile.SelectedIndex < _profiles.Count)
+            {
+                tbDomain.Text = _profiles[cbListProfile.SelectedIndex].Domain;
+                tbHost.Text = _profiles[cbListProfile.SelectedIndex].Host;
+                tbKey.Text = _profiles[cbListProfile.SelectedIndex].Key;
+                cbInterval.SelectedValue = _profiles[cbListProfile.SelectedIndex].Interval;
+            }            
         }
     }
 }

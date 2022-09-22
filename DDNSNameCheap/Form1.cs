@@ -74,7 +74,7 @@ namespace DDNSNameCheap
         private void notiIcon_DoubleClick(object sender, EventArgs e)
         {
             this.Show();
-            this.Activate();
+            this.BringToFront();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -279,7 +279,7 @@ namespace DDNSNameCheap
 
         private void UpdateList(Profile profile)
         {
-            ListViewItem listViewItem = new ListViewItem("");
+            ListViewItem listViewItem = new ListViewItem("");            
 
             listViewItem.SubItems.Add(DateTime.Now.ToString("hh:mm:ss dd/MM/yyyy"));
             listViewItem.SubItems.Add(profile.GetHost);
