@@ -6,7 +6,9 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -60,6 +62,9 @@ namespace DDNSNameCheap
             Task update = UpdateData();
 
             Task checkingPublicIP = CheckPublicIP();
+
+            //TestForm tf = new TestForm();
+            //tf.ShowDialog();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -331,6 +336,23 @@ namespace DDNSNameCheap
                 lvUpdate.Refresh();
             }
             catch { }
+
+        }
+
+        private async Task<IPAddress> GetIPByDomainName(string domainName)
+        {
+            IPAddress[] ip = await Dns.GetHostAddressesAsync(domainName);
+
+            return ip.FirstOrDefault();
+        }
+
+        private void importSettingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void exportSettingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
         }
     }
