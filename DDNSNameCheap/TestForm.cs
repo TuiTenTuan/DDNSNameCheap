@@ -31,5 +31,32 @@ namespace DDNSNameCheap
 
             label1.Text = ipdm.MapToIPv4().ToString();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofdImport = new OpenFileDialog();
+
+            ofdImport.Multiselect = false;
+            ofdImport.Title = "Import Settings";
+            ofdImport.DefaultExt = "Dat";
+            ofdImport.AddExtension = false;
+            ofdImport.Filter = "Data file (*.dat)|*.dat|Datafile (*.Dat)|*.Dat";
+
+            if (ofdImport.ShowDialog() == DialogResult.OK)
+            {
+                string sourceFilePath = ofdImport.FileName;
+
+                string extentsionFile = sourceFilePath.Substring(sourceFilePath.LastIndexOf(".") + 1);
+
+                if (extentsionFile.ToLower().CompareTo("dat") == 0)
+                {
+                    MessageBox.Show(sourceFilePath, "Data incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("File input incorrect data type", "Data incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

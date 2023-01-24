@@ -1,20 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Serialization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DDNSNameCheap
 {
@@ -30,6 +25,8 @@ namespace DDNSNameCheap
 
         private string pathData;
 
+        private string dataFileName;
+
         public Form1()
         {
             InitializeComponent();
@@ -40,6 +37,8 @@ namespace DDNSNameCheap
             forceClose = false;
 
             PublicIP = "127.0.0.1";
+
+            dataFileName = "Profiles.Dat";
 
             pathData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
@@ -57,7 +56,7 @@ namespace DDNSNameCheap
             LoadPositionWindow();
 
             await LoadFirstPublicIP();
-            await LoadData();
+            profiles = await Config.Instance.Deserialize(pathData, dataFileName);
 
             Task update = UpdateData();
 
@@ -86,7 +85,7 @@ namespace DDNSNameCheap
         {
             this.forceClose = true;
 
-            Serialize();
+            Config.Instance.Serialize(pathData, dataFileName, profiles);
 
             Application.Exit();
         }
@@ -133,24 +132,17 @@ namespace DDNSNameCheap
             }
         }
 
-        private void Serialize()
-        {
-            string dataFile = "Data.dat";
-
-            StreamWriter sw = new StreamWriter(new FileStream(pathData + dataFile, FileMode.Create));
-
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Profile>));
-
-            serializer.Serialize(sw, profiles);
-
-            sw.Close();
-        }
-
         public async Task UpdateIP(Profile p)
         {
             if (p.Ip != PublicIP)
             {
                 p.Ip = PublicIP;
+            }
+
+            if (p.IsDomainName)
+            {
+                IPAddress address = await GetIPByDomainName(p.DomainName);
+                p.Ip = address.MapToIPv4().ToString();
             }
 
             string url = $@"https://dynamicdns.park-your-domain.com/update?host={p.Host}&domain={p.Domain}&password={p.Key}&ip={p.Ip}";
@@ -218,28 +210,6 @@ namespace DDNSNameCheap
             }
         }
 
-        private async Task LoadData()
-        {
-            string dataFile = "Data.dat";
-
-            if (File.Exists(pathData + dataFile))
-            {
-                Task t = Task.Run(() =>
-                {
-                    StreamReader sr = new StreamReader(new FileStream(pathData + dataFile, FileMode.Open));
-
-                    XmlSerializer serializer = new XmlSerializer(typeof(List<Profile>));
-
-                    profiles = serializer.Deserialize(sr) as List<Profile>;
-
-                    sr.Close();
-
-                });
-
-                await t;
-            }
-        }
-
         public async Task<string> GetPublicIP()
         {
             HttpClient client = new HttpClient();
@@ -284,7 +254,7 @@ namespace DDNSNameCheap
 
         private void UpdateList(Profile profile)
         {
-            ListViewItem listViewItem = new ListViewItem("");            
+            ListViewItem listViewItem = new ListViewItem("");
 
             listViewItem.SubItems.Add(DateTime.Now.ToString("hh:mm:ss dd/MM/yyyy"));
             listViewItem.SubItems.Add(profile.GetHost);
@@ -320,10 +290,10 @@ namespace DDNSNameCheap
 
         private async void settingProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ProfileForm pf = new ProfileForm(profiles, pathData);
+            ProfileForm pf = new ProfileForm(profiles, pathData, dataFileName);
             pf.ShowDialog();
 
-            await LoadData();
+            profiles = await Config.Instance.Deserialize(pathData, dataFileName);
 
             Task u = UpdateData();
         }
@@ -346,14 +316,71 @@ namespace DDNSNameCheap
             return ip.FirstOrDefault();
         }
 
-        private void importSettingToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void importSettingToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog ofdImport = new OpenFileDialog();
 
+            ofdImport.Multiselect = false;
+            ofdImport.Title = "Import Settings";
+            ofdImport.DefaultExt = "Dat";
+            ofdImport.AddExtension = false;
+            ofdImport.Filter = "Data file (*.dat)|*.dat|Datafile (*.Dat)|*.Dat";
+
+            if (ofdImport.ShowDialog() == DialogResult.OK)
+            {
+                string sourceFilePath = ofdImport.FileName;
+
+                string extentsionFile = sourceFilePath.Substring(sourceFilePath.LastIndexOf(".") + 1);
+
+                if (extentsionFile.ToLower().CompareTo("dat") == 0)
+                {
+                    List<Profile> dataLoad = await Config.Instance.Deserialize(sourceFilePath);
+
+                    if (MessageBox.Show(dataLoad.Count() + " Profile load from file.\nDo you want to continue load profile (lost old profile)?", "Load Profile", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        Config.Instance.Serialize(pathData, dataFileName, dataLoad);
+
+                        profiles = dataLoad;
+
+                        await UpdateData();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("File input incorrect data type", "Data incorrect", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void exportSettingToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (File.Exists(Path.Combine(pathData, dataFileName)))
+            {
+                SaveFileDialog sfdExport = new SaveFileDialog();
+                sfdExport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                sfdExport.Title = "Export Settting Files";
+                sfdExport.CheckFileExists = true;
+                sfdExport.CheckPathExists = true;
+                sfdExport.DefaultExt = "dat";
+                sfdExport.Filter = "Data file (*.dat)|*.dat|Datafile (*.Dat)|*.Dat";
+                sfdExport.RestoreDirectory = true;
 
+                if (sfdExport.ShowDialog() == DialogResult.OK)
+                {
+                    if (sfdExport.FileName != "")
+                    {
+                        File.Copy(Path.Combine(pathData, dataFileName), sfdExport.FileName, true);
+                    }
+                    else
+                    {
+                        MessageBox.Show("File path not exits", "Error when save file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No profile detechted", "Error when export file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

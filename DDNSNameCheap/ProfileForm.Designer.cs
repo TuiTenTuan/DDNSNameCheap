@@ -32,7 +32,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.cbListProfile = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.tbHost = new System.Windows.Forms.TextBox();
@@ -42,6 +41,10 @@
             this.tbKey = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.cbInterval = new System.Windows.Forms.ComboBox();
+            this.cbIsDomainName = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbDomainName = new System.Windows.Forms.TextBox();
+            this.cbListProfile = new System.Windows.Forms.ComboBox();
             this.btnNew = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -64,13 +67,13 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(359, 343);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(359, 433);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // btnSave
             // 
             this.btnSave.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSave.Location = new System.Drawing.Point(182, 306);
+            this.btnSave.Location = new System.Drawing.Point(182, 396);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(174, 34);
             this.btnSave.TabIndex = 0;
@@ -81,25 +84,13 @@
             // btnDelete
             // 
             this.btnDelete.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDelete.Location = new System.Drawing.Point(3, 306);
+            this.btnDelete.Location = new System.Drawing.Point(3, 396);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(173, 34);
             this.btnDelete.TabIndex = 1;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // cbListProfile
-            // 
-            this.tableLayoutPanel1.SetColumnSpan(this.cbListProfile, 2);
-            this.cbListProfile.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbListProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbListProfile.FormattingEnabled = true;
-            this.cbListProfile.Location = new System.Drawing.Point(3, 3);
-            this.cbListProfile.Name = "cbListProfile";
-            this.cbListProfile.Size = new System.Drawing.Size(353, 21);
-            this.cbListProfile.TabIndex = 2;
-            this.cbListProfile.SelectedIndexChanged += new System.EventHandler(this.cbListProfile_SelectedIndexChanged);
             // 
             // flowLayoutPanel1
             // 
@@ -112,12 +103,15 @@
             this.flowLayoutPanel1.Controls.Add(this.tbKey);
             this.flowLayoutPanel1.Controls.Add(this.label4);
             this.flowLayoutPanel1.Controls.Add(this.cbInterval);
+            this.flowLayoutPanel1.Controls.Add(this.cbIsDomainName);
+            this.flowLayoutPanel1.Controls.Add(this.label5);
+            this.flowLayoutPanel1.Controls.Add(this.tbDomainName);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 63);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(10);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(353, 237);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(353, 327);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // label1
@@ -193,6 +187,48 @@
             this.cbInterval.Size = new System.Drawing.Size(325, 21);
             this.cbInterval.TabIndex = 7;
             // 
+            // cbIsDomainName
+            // 
+            this.cbIsDomainName.AutoSize = true;
+            this.cbIsDomainName.Location = new System.Drawing.Point(13, 247);
+            this.cbIsDomainName.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.cbIsDomainName.Name = "cbIsDomainName";
+            this.cbIsDomainName.Size = new System.Drawing.Size(104, 17);
+            this.cbIsDomainName.TabIndex = 8;
+            this.cbIsDomainName.Text = "Is Domain Name";
+            this.cbIsDomainName.UseVisualStyleBackColor = true;
+            this.cbIsDomainName.CheckedChanged += new System.EventHandler(this.cbIsDomainName_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(13, 277);
+            this.label5.Margin = new System.Windows.Forms.Padding(3, 10, 3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Domain Name";
+            // 
+            // tbDomainName
+            // 
+            this.tbDomainName.Dock = System.Windows.Forms.DockStyle.Left;
+            this.tbDomainName.Location = new System.Drawing.Point(13, 293);
+            this.tbDomainName.Name = "tbDomainName";
+            this.tbDomainName.Size = new System.Drawing.Size(325, 20);
+            this.tbDomainName.TabIndex = 10;
+            // 
+            // cbListProfile
+            // 
+            this.tableLayoutPanel1.SetColumnSpan(this.cbListProfile, 2);
+            this.cbListProfile.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbListProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbListProfile.FormattingEnabled = true;
+            this.cbListProfile.Location = new System.Drawing.Point(3, 3);
+            this.cbListProfile.Name = "cbListProfile";
+            this.cbListProfile.Size = new System.Drawing.Size(353, 21);
+            this.cbListProfile.TabIndex = 2;
+            this.cbListProfile.SelectedIndexChanged += new System.EventHandler(this.cbListProfile_SelectedIndexChanged);
+            // 
             // btnNew
             // 
             this.btnNew.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -208,7 +244,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 363);
+            this.ClientSize = new System.Drawing.Size(384, 453);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProfileForm";
@@ -237,5 +273,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbInterval;
         private System.Windows.Forms.Button btnNew;
+        private System.Windows.Forms.CheckBox cbIsDomainName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbDomainName;
     }
 }

@@ -1,17 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Xml.Serialization.Configuration;
 
 namespace DDNSNameCheap
 {
@@ -19,16 +8,19 @@ namespace DDNSNameCheap
     {
         private List<Profile> _profiles;
         private string _path;
+        private string _name;
 
         private bool IsCreateNew;
 
-        public ProfileForm(List<Profile> profiles, string path)
+        public ProfileForm(List<Profile> profiles, string path, string dataFileName)
         {
             IsCreateNew = false;
 
             _profiles = profiles;
 
             _path = path;
+
+            _name = dataFileName;
 
             InitializeComponent();
         }
@@ -64,20 +56,10 @@ namespace DDNSNameCheap
                 cbListProfile.DisplayMember = "GetHost";
                 cbListProfile.SelectedIndex = 0;
             }
-        }
 
-        private void Serialize()
-        {
-            string dataFile = "Data.dat";
-
-            StreamWriter sw = new StreamWriter(new FileStream(_path + dataFile, FileMode.Create));
-
-            XmlSerializer serializer = new XmlSerializer(typeof(List<Profile>));
-
-            serializer.Serialize(sw, _profiles);
-
-            sw.Close();
-        }
+            tbDomainName.Visible = cbIsDomainName.Checked;
+            label5.Visible = cbIsDomainName.Checked;
+        }      
 
         private void ClearInput()
         {
@@ -99,7 +81,8 @@ namespace DDNSNameCheap
         private void btnDelete_Click(object sender, EventArgs e)
         {
             _profiles.RemoveAt(cbListProfile.SelectedIndex);
-            Serialize();
+            
+            Config.Instance.Serialize(_path, _name, _profiles);
 
             ClearInput();
             
@@ -115,7 +98,7 @@ namespace DDNSNameCheap
         {
             if (IsCreateNew)
             {
-                Profile p = new Profile(tbDomain.Text, tbHost.Text, tbKey.Text, (int)cbInterval.SelectedValue);
+                Profile p = new Profile(tbDomain.Text, tbHost.Text, tbKey.Text, (int)cbInterval.SelectedValue, cbIsDomainName.Checked, tbDomainName.Text);
 
                 _profiles.Add(p);
 
@@ -136,7 +119,7 @@ namespace DDNSNameCheap
 
             ClearInput();
 
-            Serialize();
+            Config.Instance.Serialize(_path, _name, _profiles);
         }
 
         private void ReloadListProfile()
@@ -158,7 +141,18 @@ namespace DDNSNameCheap
                 tbHost.Text = _profiles[cbListProfile.SelectedIndex].Host;
                 tbKey.Text = _profiles[cbListProfile.SelectedIndex].Key;
                 cbInterval.SelectedValue = _profiles[cbListProfile.SelectedIndex].Interval;
+                cbIsDomainName.Checked = _profiles[cbListProfile.SelectedIndex].IsDomainName;
+                tbDomainName.Text = _profiles[cbListProfile.SelectedIndex].DomainName;
+
+                tbDomainName.Visible = cbIsDomainName.Checked;
+                label5.Visible = cbIsDomainName.Checked;
             }            
+        }
+
+        private void cbIsDomainName_CheckedChanged(object sender, EventArgs e)
+        {
+            tbDomainName.Visible = cbIsDomainName.Checked;
+            label5.Visible = cbIsDomainName.Checked;
         }
     }
 }

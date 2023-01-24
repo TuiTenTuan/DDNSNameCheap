@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace DDNSNameCheap
 {
@@ -27,7 +22,7 @@ namespace DDNSNameCheap
 
         public string GetHost { get { return Host + "." + Domain; } }
 
-        public Profile(Guid id, string domain, string host, string key, int interval, string ip)
+        public Profile(Guid id, string domain, string host, string key, int interval, string ip, bool isDomainName, string domainName)
         {
             Id = id;
             Domain = domain;
@@ -35,11 +30,13 @@ namespace DDNSNameCheap
             Key = key;
             Interval = interval;
             Ip = ip;
-            DomainName = "";
-            IsDomainName = false;
+            DomainName = domainName;
+            IsDomainName = isDomainName;
         }
 
-        public Profile(string domain, string host, string key, int interval) : this(Guid.NewGuid(), domain, host, key, interval, "127.0.0.1") { }
+        public Profile(string domain, string host, string key, int interval, bool isDomainName, string domainName) : this(Guid.NewGuid(), domain, host, key, interval, "127.0.0.1", isDomainName, domainName) { }
+
+        public Profile(string domain, string host, string key, int interval) : this(Guid.NewGuid(), domain, host, key, interval, "127.0.0.1", false, "") { }
 
         public Profile() : this("", "", "", 1800) { }
     }
