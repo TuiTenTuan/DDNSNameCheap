@@ -360,7 +360,7 @@ namespace DDNSNameCheap
                 sfdExport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 sfdExport.Title = "Export Settting Files";
                 sfdExport.CheckFileExists = true;
-                sfdExport.CheckPathExists = true;
+                sfdExport.CheckPathExists = false;
                 sfdExport.DefaultExt = "dat";
                 sfdExport.Filter = "Data file (*.dat)|*.dat|Datafile (*.Dat)|*.Dat";
                 sfdExport.RestoreDirectory = true;

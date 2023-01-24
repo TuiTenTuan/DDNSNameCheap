@@ -17,3 +17,8 @@ D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\obj\Debug\DDNSNameCheap.csproj.CopyC
 D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\obj\Debug\DDNSNameCheap.exe
 D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\obj\Debug\DDNSNameCheap.pdb
 D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\obj\Debug\DDNSNameCheap.TestForm.resources
+D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\bin\Debug\DDNSNameCheap.exe.manifest
+D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\bin\Debug\DDNSNameCheap.application
+D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\obj\Debug\DDNSNameCheap.g.resources
+D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\obj\Debug\DDNSNameCheap.exe.manifest
+D:\Dev\Personal\DDNSNameCheap\DDNSNameCheap\obj\Debug\DDNSNameCheap.application
