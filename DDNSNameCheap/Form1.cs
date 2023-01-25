@@ -358,7 +358,7 @@ namespace DDNSNameCheap
                 SaveFileDialog sfdExport = new SaveFileDialog();
                 sfdExport.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 sfdExport.Title = "Export Settting Files";
-                sfdExport.CheckFileExists = true;
+                sfdExport.CheckFileExists = false;
                 sfdExport.CheckPathExists = false;
                 sfdExport.DefaultExt = "dat";
                 sfdExport.Filter = "Data file (*.dat)|*.dat|Datafile (*.Dat)|*.Dat";
